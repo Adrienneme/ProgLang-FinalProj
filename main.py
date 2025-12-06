@@ -19,6 +19,20 @@ def compute_interest(principal: int, days: int):
     interest = principal * rate
     return interest
   
+def print_summary(transaction: str, percentage: int, interest: float, d_principal: int, principal: int = 0, service_fee: float = 0):
+    total = principal + interest + service_fee
+    print("\n-------------------------------")
+    print(f"      {transaction} SUMMARY        ")
+    print("-------------------------------")
+    print(f" Principal:             P{d_principal:,.2f}")
+    print(f" Interest {percentage}:          P{interest:,.2f}")
+    if service_fee > 0:
+        print(f" Service Fee:            P{service_fee:,.2f}")
+    print("-------------------------------")
+    print(f" TOTAL:                 P{total:,.2f}")
+    print("-------------------------------")
+    print("Please pay the Total Amount. Thank you!\n")
+  
 
 def renew(principal: int, days: int):
     interest = compute_interest(principal=principal, days=days)
@@ -30,16 +44,7 @@ def renew(principal: int, days: int):
 
     percent = days_equivalent(days=days)
 
-    print("\n-------------------------------")
-    print("        RENEWAL SUMMARY        ")
-    print("-------------------------------")
-    print(f" Principal:         P{principal:,.2f}")
-    print(f" Interest ({percent}%):  P{interest:,.2f}")
-    print(f" + Service Fee:     P10.00")
-    print("-------------------------------")
-    print(f" TOTAL:             P{interest + 10:,.2f}")
-    print("-------------------------------")
-    print("Please pay the Total Amount. Thank you!\n")
+    print_summary(transaction="RENEWAL", percentage=percent, d_principal=principal, interest=interest, service_fee=10)
     
     
 def redeem(principal: int, days: int):
@@ -52,33 +57,39 @@ def redeem(principal: int, days: int):
 
     percent = days_equivalent(days=days)
 
-    print("\n-------------------------------")
-    print("        RENEWAL SUMMARY        ")
-    print("-------------------------------")
-    print(f" Principal:           P{principal:,.2f}")
-    print(f" + Interest ({percent}%):  P{interest:,.2f}")
-    print(f" + Service Fee:       P10.00")
-    print("-------------------------------")
-    print(f" TOTAL:               P{principal + interest + 10:,.2f}")
-    print("-------------------------------")
-    print("Please pay the Total Amount. Thank you!\n")
+    print_summary(transaction="REDEEM", percentage=percent, d_principal=principal, principal=principal, interest=interest, service_fee=10)
+    
+def pay(principal: int, days: int):
+    interest = compute_interest(principal=principal, days=days)
+
+    if interest == "forfeit":
+        print("\n⚠ Pawn ticket has exceeded 120 days.")
+        print("Item status: FORFEITED\n")
+        return
+
+    percent = days_equivalent(days=days)
+
+    print_summary(transaction="PAY INTEREST", percentage=percent, d_principal=principal, interest=interest)
   
 
 def main():
   print("------Hellow, Welcome to my PAWN SHOP MEOW!------")
-  princicpal = int(input("Enter Principal Amount: "))
+  principal = int(input("Enter Principal Amount: "))
   days = int(input("Enter number of Days after Loan: "))
   
-  print("Choose Transation: ")
-  print("A) Renew (Extend Loan)")
-  print("B) Redeem (Recover collateral)")
-  print("C) Forfeit (Surrender Item)")
+  print("Choose Transaction: ")
+  print("A) Pay Interest Only")
+  print("B) Renew (Extend Loan)")
+  print("C) Redeem (Recover collateral)")
+  print("D) Forfeit (Surrender Item)")
   choice = input("Answer: ")
   
   if choice.lower() == "a":
-    renew(principal=princicpal, days=days)
+    pay(principal=principal, days=days)
   elif choice.lower() == "b":
-    redeem(principal=princicpal, days=days)
+    renew(principal=principal, days=days)
+  elif choice.lower() == "c":
+    redeem(principal=principal, days=days)
   else:
     print("\n-------------------------------")
     print("        ITEM FORFEITED        ")
