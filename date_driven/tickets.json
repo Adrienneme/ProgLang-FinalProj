@@ -1,0 +1,34 @@
+{
+    "4645": {
+        "Customer Name": "yenie",
+        "Item Type": "gold",
+        "Principal Loan": 500,
+        "Pawn Date": "2025-12-10",
+        "Maturity Date": "2026-04-09",
+        "Status": "Active (Renewed)"
+    },
+    "1445": {
+        "Customer Name": "yonngi",
+        "Item Type": "silver spoon",
+        "Principal Loan": 100,
+        "Pawn Date": "2025-12-10",
+        "Maturity Date": "2026-04-09",
+        "Status": "Redeemed"
+    },
+    "2013": {
+        "Customer Name": "bea",
+        "Item Type": "car",
+        "Principal Loan": 1000000,
+        "Pawn Date": "2025-12-10",
+        "Maturity Date": "2026-04-09",
+        "Status": "Forfeited"
+    },
+    "7452": {
+        "Customer Name": "me",
+        "Item Type": "ass",
+        "Principal Loan": 1450,
+        "Pawn Date": "2025-12-10",
+        "Maturity Date": "2026-04-09",
+        "Status": "Active (Renewed)"
+    }
+}
