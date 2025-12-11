@@ -4,8 +4,9 @@
         "Item Type": "gold",
         "Principal Loan": 500,
         "Pawn Date": "2025-12-10",
-        "Maturity Date": "2026-04-09",
-        "Status": "Active (Renewed)"
+        "Maturity Date": "2026-04-10",
+        "Status": "Active (Renewed)",
+        "Renewal Date": "2025-12-11"
     },
     "1445": {
         "Customer Name": "yonngi",
@@ -30,5 +31,21 @@
         "Pawn Date": "2025-12-10",
         "Maturity Date": "2026-04-09",
         "Status": "Active (Renewed)"
+    },
+    "7591": {
+        "Customer Name": "yen",
+        "Item Type": "laptop",
+        "Principal Loan": 5000,
+        "Pawn Date": "2025-12-11",
+        "Maturity Date": "2026-04-10",
+        "Status": "Active"
+    },
+    "6627": {
+        "Customer Name": "n",
+        "Item Type": "n",
+        "Principal Loan": 4,
+        "Pawn Date": "2025-12-11",
+        "Maturity Date": "2026-04-10",
+        "Status": "Active"
     }
 }

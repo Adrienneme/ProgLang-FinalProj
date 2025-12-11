@@ -9,7 +9,7 @@ used_tickets = []
 
 def generate_ticket():
     while True:
-        ticket = random.randint(1000, 9999)
+        ticket = f"{random.randint(0, 9999):04d}"
         if ticket not in used_tickets:
             used_tickets.append(ticket)
             return ticket
@@ -43,7 +43,7 @@ def create_pawn():
 
 def renew(ticket_no, data):
     principal = data.get('Principal Loan')
-    pawn = data.get("Pawn Date")
+    pawn = data.get("Renewal Date") or data.get("Pawn Date")
 
     pawn_date = datetime.strptime(pawn, "%Y-%m-%d").date()
     today = datetime.now().date()
@@ -54,14 +54,15 @@ def renew(ticket_no, data):
     maturity_date = datetime.now() + timedelta(days=120)
 
     print("\n---------- Renew Pawn ----------")
-    print(f"Days Passed:  {days_passed}/120")
-    print(f"Interest Due: P{interest:,.2f}")
-    print("Service Fee:  P10.00")
-    print(f"New Maturity Date: {maturity_date.strftime('%Y-%m-%d')}\n")
+    print(f"Days Passed:       {days_passed}/120")
+    print(f"Interest Due:      P{interest:,.2f}")
+    print(f"New Maturity Date: {maturity_date.strftime('%Y-%m-%d')}")
+    print("\nService Fee:       P10.00")
+    print("--------------------------------")
     
     choice = input("Renew this pawn?(y/n): ")
     if choice.lower() == "y":
-        print(f"Please pay the total amount of P{interest + 10} to proceed.")
+        print(f"\nPlease pay the total amount of P{interest + 10} to proceed.")
         ticket_CRUD.update_ticket(
             ticket_no,
             maturity_date=maturity_date.strftime("%Y-%m-%d"),
@@ -75,7 +76,7 @@ def renew(ticket_no, data):
     
 def redeem(ticket_no, data):
     principal = data.get('Principal Loan')
-    pawn = data.get("Pawn Date")
+    pawn = data.get("Renewal Date") or data.get("Pawn Date")
     
     pawn_date = datetime.strptime(pawn, "%Y-%m-%d").date()
     today = datetime.now().date()
@@ -85,12 +86,13 @@ def redeem(ticket_no, data):
 
     print("\n---------- Redeem Pawn ----------")
     print(f"Days Passed:  {days_passed}/120")
-    print(f"Principal: P{principal:,.2f}")
+    print(f"Principal:    P{principal:,.2f}")
     print(f"Interest Due: P{interest:,.2f}")
-    print("Service Fee:  P10.00\n")
+    print("\nService Fee:  P10.00")
+    print("---------------------------------")
     choice = input("Redeem this pawn?(y/n): ")
     if choice.lower() == "y":
-        print(f"Please pay the total amount of P{principal + interest + 10} to proceed.")
+        print(f"\nPlease pay the total amount of P{principal + interest + 10} to proceed.")
         ticket_CRUD.update_ticket(
             ticket_no,
             status="Redeemed"
@@ -130,7 +132,7 @@ def main():
 
         if action.lower() == "a":
             create_pawn()
-
+            
         elif action.lower() == "b":
             ticket_CRUD.display_tickets_table()
             ticket = input("Find Ticket Number: ")
@@ -157,6 +159,7 @@ def main():
 
                     elif transaction.lower() == "c":
                         forfeit(ticket_no=ticket)
+                        
                     elif transaction.lower() == "d":
                         continue
                 else:

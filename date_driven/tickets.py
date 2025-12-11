@@ -12,24 +12,24 @@ def load_tickets():
           return {}
 
     with open(file_name, "r") as f:
-      return json.load(f)
+      return json.load(f) #converts json file into dict or list
     
 def save_tickets(tickets):
   with open(file_name, "w") as f:
-    json.dump(tickets, f, indent=4)
+    json.dump(tickets, f, indent=4) #python to JSON file
 
 
 class ticket_CRUD:
   @staticmethod
   def get_ticket(ticket_no):
     tickets = load_tickets()
-    key = str(ticket_no)
+    key = str(ticket_no) #json keys is a string
     
     if key not in tickets:
-        print("No Pawn Ticket Found\n")
+        print("\nNo Pawn Ticket Found")
         return None
 
-    return tickets[key]
+    return tickets[key] #returns the values
 
 
   @staticmethod
@@ -49,7 +49,7 @@ class ticket_CRUD:
           item = data.get("Item Type", "")
           loan = data.get("Principal Loan", "")
           status = data.get("Status", "")
-          pawn_date = data.get("Pawn Date", "")
+          pawn_date = data.get("Renewal Date") or data.get("Pawn Date")
           maturity_date = data.get("Maturity Date", "")
 
           print(f"{ticket_no:<12} {customer:<20} {item:<15} P{loan:<15,.2f} {status:<20} {pawn_date:<12} {maturity_date:<12}")
@@ -78,7 +78,7 @@ class ticket_CRUD:
           tickets[key]["Maturity Date"] = maturity_date
       
       if pawn_date is not None:
-          tickets[key]["Pawn Date"] = pawn_date
+          tickets[key]["Renewal Date"] = pawn_date
       
       if status is not None:
           tickets[key]["Status"] = status
